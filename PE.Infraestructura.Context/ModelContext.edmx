@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="ModelContext.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="ModelContextTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelContext" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContextContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Personas" EntityType="ModelContext.Persona" />
+          <EntitySet Name="Docentes" EntityType="ModelContext.Docente" />
+          <EntitySet Name="Alumnos" EntityType="ModelContext.Alumno" />
+          <EntitySet Name="Usuarios" EntityType="ModelContext.Usuario" />
+          <EntitySet Name="Roles" EntityType="ModelContext.Rol" />
+          <AssociationSet Name="PersonaDocente" Association="ModelContext.PersonaDocente">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Docente" EntitySet="Docentes" />
+          </AssociationSet>
+          <AssociationSet Name="PersonaAlumno" Association="ModelContext.PersonaAlumno">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Alumno" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioPersona" Association="ModelContext.UsuarioPersona">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="RolUsuario" Association="ModelContext.RolUsuario">
+            <End Role="Rol" EntitySet="Roles" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <EntitySet Name="Aulas" EntityType="ModelContext.Aula" />
+          <EntitySet Name="Materias" EntityType="ModelContext.Materia" />
+          <EntitySet Name="Tareas" EntityType="ModelContext.Tarea" />
+        </EntityContainer>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" />
+          <Property Name="Dni" Type="String" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="String" Nullable="false" />
+          <Property Name="Domicilio" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <NavigationProperty Name="Docente" Relationship="ModelContext.PersonaDocente" FromRole="Persona" ToRole="Docente" />
+          <NavigationProperty Name="Alumno" Relationship="ModelContext.PersonaAlumno" FromRole="Persona" ToRole="Alumno" />
+          <NavigationProperty Name="Usuario" Relationship="ModelContext.UsuarioPersona" FromRole="Persona" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Legajo" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="ModelContext.PersonaDocente" FromRole="Docente" ToRole="Persona" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Legajo" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="ModelContext.PersonaAlumno" FromRole="Alumno" ToRole="Persona" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Bloqueado" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="ModelContext.UsuarioPersona" FromRole="Usuario" ToRole="Persona" />
+          <NavigationProperty Name="Rol" Relationship="ModelContext.RolUsuario" FromRole="Usuario" ToRole="Rol" />
+          <Property Name="RolId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="ModelContext.RolUsuario" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="PersonaDocente">
+          <End Type="ModelContext.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="ModelContext.Docente" Role="Docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Docente">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonaAlumno">
+          <End Type="ModelContext.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="ModelContext.Alumno" Role="Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioPersona">
+          <End Type="ModelContext.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ModelContext.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RolUsuario">
+          <End Type="ModelContext.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="ModelContext.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="FechaInicio" Type="String" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="ModelContext" />
+        <Alias Key="Target" Value="ModelContext.Store" />
+        <EntityContainerMapping CdmEntityContainer="ModelContextContainer" StorageEntityContainer="ModelContextTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
