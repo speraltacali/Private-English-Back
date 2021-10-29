@@ -59,6 +59,7 @@
     <Folder Include="Persona\Dto\" />
     <Folder Include="Rol\" />
     <Folder Include="TareaAlumno\" />
+    <Folder Include="Tarea\" />
     <Folder Include="Usuario\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
