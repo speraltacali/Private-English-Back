@@ -105,7 +105,7 @@
           <NavigationProperty Name="Docente" Relationship="ModelContext.PersonaDocente" FromRole="Persona" ToRole="Docente" />
           <NavigationProperty Name="Alumno" Relationship="ModelContext.PersonaAlumno" FromRole="Persona" ToRole="Alumno" />
           <NavigationProperty Name="Usuario" Relationship="ModelContext.UsuarioPersona" FromRole="Persona" ToRole="Usuario" />
-          <Property Name="UsuarioId" Type="Int32" Nullable="true" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Docente">
           <Key>
