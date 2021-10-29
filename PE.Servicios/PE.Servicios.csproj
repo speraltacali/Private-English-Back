@@ -44,23 +44,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Alumno - Copy %282%29\" />
-    <Folder Include="Alumno - Copy %283%29\" />
-    <Folder Include="Alumno - Copy %284%29\" />
-    <Folder Include="Alumno - Copy %285%29\" />
-    <Folder Include="Alumno\" />
-    <Folder Include="Asistencia\" />
-    <Folder Include="AulaAlumno\" />
-    <Folder Include="Aula\" />
-    <Folder Include="Docente\" />
-    <Folder Include="Materia\" />
-    <Folder Include="Nivel\" />
-    <Folder Include="Perfil\" />
+    <Folder Include="Alumno\Dto\" />
+    <Folder Include="Archivo\Dto\" />
+    <Folder Include="Asistencia\Dto\" />
+    <Folder Include="AulaAlumno\Dto\" />
+    <Folder Include="Aula\Dto\" />
+    <Folder Include="Ciclo\Dto\" />
+    <Folder Include="Docente\Dto\" />
+    <Folder Include="Materia\Dto\" />
+    <Folder Include="Nivel\Dto\" />
     <Folder Include="Persona\Dto\" />
-    <Folder Include="Rol\" />
-    <Folder Include="TareaAlumno\" />
-    <Folder Include="Tarea\" />
-    <Folder Include="Usuario\" />
+    <Folder Include="Rol\Dto\" />
+    <Folder Include="TareaAlumno\Dto\" />
+    <Folder Include="Usuario\Dto\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
