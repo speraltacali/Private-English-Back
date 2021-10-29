@@ -17,5 +17,7 @@ namespace PE.Servicios.Alumno.Dto
         public DateTime FechaNacimiento { get; set; }
 
         public bool Eliminado { get; set; }
+
+        public string Domicilio { get; set; }
     }
 }
