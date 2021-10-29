@@ -8,6 +8,14 @@ namespace PE.Servicios.Alumno.Dto
 {
     public class AlumnoDto
     {
-        public int enia { get; set; }
+        public string Nombre { get; set; }
+
+        public string Apellido { get; set; }
+
+        public string Dni { get; set; }
+
+        public DateTime FechaNacimiento { get; set; }
+
+        public bool Eliminado { get; set; }
     }
 }
