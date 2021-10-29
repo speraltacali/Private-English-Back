@@ -8,5 +8,6 @@ namespace PE.Servicios.Alumno.Dto
 {
     public class AlumnoDto
     {
+        public int enia { get; set; }
     }
 }
