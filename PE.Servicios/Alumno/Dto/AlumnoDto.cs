@@ -19,5 +19,8 @@ namespace PE.Servicios.Alumno.Dto
         public bool Eliminado { get; set; }
 
         public string Domicilio { get; set; }
+
+        public int PruebaId { get; set; }
+
     }
 }
