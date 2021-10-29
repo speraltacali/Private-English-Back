@@ -37,6 +37,59 @@
           <EntitySet Name="Aulas" EntityType="ModelContext.Aula" />
           <EntitySet Name="Materias" EntityType="ModelContext.Materia" />
           <EntitySet Name="Tareas" EntityType="ModelContext.Tarea" />
+          <EntitySet Name="Ciclos" EntityType="ModelContext.Ciclo" />
+          <AssociationSet Name="DocenteAula" Association="ModelContext.DocenteAula">
+            <End Role="Docente" EntitySet="Docentes" />
+            <End Role="Aula" EntitySet="Aulas" />
+          </AssociationSet>
+          <AssociationSet Name="CicloAula" Association="ModelContext.CicloAula">
+            <End Role="Ciclo" EntitySet="Ciclos" />
+            <End Role="Aula" EntitySet="Aulas" />
+          </AssociationSet>
+          <AssociationSet Name="MateriaAula" Association="ModelContext.MateriaAula">
+            <End Role="Materia" EntitySet="Materias" />
+            <End Role="Aula" EntitySet="Aulas" />
+          </AssociationSet>
+          <EntitySet Name="AulaAlumnos" EntityType="ModelContext.AulaAlumno" />
+          <AssociationSet Name="AlumnoAulaAlumno" Association="ModelContext.AlumnoAulaAlumno">
+            <End Role="Alumno" EntitySet="Alumnos" />
+            <End Role="AulaAlumno" EntitySet="AulaAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="AulaAulaAlumno" Association="ModelContext.AulaAulaAlumno">
+            <End Role="Aula" EntitySet="Aulas" />
+            <End Role="AulaAlumno" EntitySet="AulaAlumnos" />
+          </AssociationSet>
+          <EntitySet Name="Asistencias" EntityType="ModelContext.Asistencia" />
+          <AssociationSet Name="AulaAlumnoAsistencia" Association="ModelContext.AulaAlumnoAsistencia">
+            <End Role="AulaAlumno" EntitySet="AulaAlumnos" />
+            <End Role="Asistencia" EntitySet="Asistencias" />
+          </AssociationSet>
+          <EntitySet Name="Archivos" EntityType="ModelContext.Archivo" />
+          <AssociationSet Name="DocenteTarea" Association="ModelContext.DocenteTarea">
+            <End Role="Docente" EntitySet="Docentes" />
+            <End Role="Tarea" EntitySet="Tareas" />
+          </AssociationSet>
+          <AssociationSet Name="AulaTarea" Association="ModelContext.AulaTarea">
+            <End Role="Aula" EntitySet="Aulas" />
+            <End Role="Tarea" EntitySet="Tareas" />
+          </AssociationSet>
+          <AssociationSet Name="ArchivoTarea" Association="ModelContext.ArchivoTarea">
+            <End Role="Archivo" EntitySet="Archivos" />
+            <End Role="Tarea" EntitySet="Tareas" />
+          </AssociationSet>
+          <EntitySet Name="TareaAlumnos" EntityType="ModelContext.TareaAlumno" />
+          <AssociationSet Name="AulaAlumnoTareaAlumno" Association="ModelContext.AulaAlumnoTareaAlumno">
+            <End Role="AulaAlumno" EntitySet="AulaAlumnos" />
+            <End Role="TareaAlumno" EntitySet="TareaAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="TareaTareaAlumno" Association="ModelContext.TareaTareaAlumno">
+            <End Role="Tarea" EntitySet="Tareas" />
+            <End Role="TareaAlumno" EntitySet="TareaAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="ArchivoTareaAlumno" Association="ModelContext.ArchivoTareaAlumno">
+            <End Role="Archivo" EntitySet="Archivos" />
+            <End Role="TareaAlumno" EntitySet="TareaAlumnos" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Persona">
           <Key>
@@ -46,9 +99,9 @@
           <Property Name="Nombre" Type="String" Nullable="false" />
           <Property Name="Apellido" Type="String" Nullable="false" />
           <Property Name="Dni" Type="String" Nullable="false" />
-          <Property Name="FechaNacimiento" Type="String" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" />
           <Property Name="Domicilio" Type="String" Nullable="false" />
-          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Docente" Relationship="ModelContext.PersonaDocente" FromRole="Persona" ToRole="Docente" />
           <NavigationProperty Name="Alumno" Relationship="ModelContext.PersonaAlumno" FromRole="Persona" ToRole="Alumno" />
           <NavigationProperty Name="Usuario" Relationship="ModelContext.UsuarioPersona" FromRole="Persona" ToRole="Usuario" />
@@ -60,9 +113,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Legajo" Type="String" Nullable="false" />
-          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="ModelContext.PersonaDocente" FromRole="Docente" ToRole="Persona" />
           <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="ModelContext.DocenteAula" FromRole="Docente" ToRole="Aula" />
+          <NavigationProperty Name="Tarea" Relationship="ModelContext.DocenteTarea" FromRole="Docente" ToRole="Tarea" />
         </EntityType>
         <EntityType Name="Alumno">
           <Key>
@@ -70,9 +125,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Legajo" Type="String" Nullable="false" />
-          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="ModelContext.PersonaAlumno" FromRole="Alumno" ToRole="Persona" />
           <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AulaAlumno" Relationship="ModelContext.AlumnoAulaAlumno" FromRole="Alumno" ToRole="AulaAlumno" />
+          <Property Name="FechaInscripcion" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -81,7 +138,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
-          <Property Name="Bloqueado" Type="String" Nullable="false" />
+          <Property Name="Bloqueado" Type="Boolean" Nullable="false" />
           <Property Name="Eliminado" Type="String" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="ModelContext.UsuarioPersona" FromRole="Usuario" ToRole="Persona" />
           <NavigationProperty Name="Rol" Relationship="ModelContext.RolUsuario" FromRole="Usuario" ToRole="Rol" />
@@ -149,6 +206,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Docente" Relationship="ModelContext.DocenteAula" FromRole="Aula" ToRole="Docente" />
+          <Property Name="DocenteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ciclo" Relationship="ModelContext.CicloAula" FromRole="Aula" ToRole="Ciclo" />
+          <Property Name="CicloId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Materia" Relationship="ModelContext.MateriaAula" FromRole="Aula" ToRole="Materia" />
+          <Property Name="MateriaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AulaAlumno" Relationship="ModelContext.AulaAulaAlumno" FromRole="Aula" ToRole="AulaAlumno" />
+          <Property Name="Codigo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tarea" Relationship="ModelContext.AulaTarea" FromRole="Aula" ToRole="Tarea" />
         </EntityType>
         <EntityType Name="Materia">
           <Key>
@@ -156,6 +224,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="ModelContext.MateriaAula" FromRole="Materia" ToRole="Aula" />
         </EntityType>
         <EntityType Name="Tarea">
           <Key>
@@ -164,9 +234,219 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Titulo" Type="String" Nullable="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" />
-          <Property Name="FechaInicio" Type="String" Nullable="false" />
-          <Property Name="FechaVencimiento" Type="String" Nullable="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Docente" Relationship="ModelContext.DocenteTarea" FromRole="Tarea" ToRole="Docente" />
+          <Property Name="DocenteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="ModelContext.AulaTarea" FromRole="Tarea" ToRole="Aula" />
+          <Property Name="AulaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Archivo" Relationship="ModelContext.ArchivoTarea" FromRole="Tarea" ToRole="Archivo" />
+          <Property Name="ArchivoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TareaAlumno" Relationship="ModelContext.TareaTareaAlumno" FromRole="Tarea" ToRole="TareaAlumno" />
         </EntityType>
+        <EntityType Name="Ciclo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="ModelContext.CicloAula" FromRole="Ciclo" ToRole="Aula" />
+        </EntityType>
+        <Association Name="DocenteAula">
+          <End Type="ModelContext.Docente" Role="Docente" Multiplicity="1" />
+          <End Type="ModelContext.Aula" Role="Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="DocenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CicloAula">
+          <End Type="ModelContext.Ciclo" Role="Ciclo" Multiplicity="1" />
+          <End Type="ModelContext.Aula" Role="Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciclo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="CicloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MateriaAula">
+          <End Type="ModelContext.Materia" Role="Materia" Multiplicity="1" />
+          <End Type="ModelContext.Aula" Role="Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="MateriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AulaAlumno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Finalizo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="ModelContext.AlumnoAulaAlumno" FromRole="AulaAlumno" ToRole="Alumno" />
+          <Property Name="AlumnoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="ModelContext.AulaAulaAlumno" FromRole="AulaAlumno" ToRole="Aula" />
+          <Property Name="AulaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asistencia" Relationship="ModelContext.AulaAlumnoAsistencia" FromRole="AulaAlumno" ToRole="Asistencia" />
+          <NavigationProperty Name="TareaAlumno" Relationship="ModelContext.AulaAlumnoTareaAlumno" FromRole="AulaAlumno" ToRole="TareaAlumno" />
+        </EntityType>
+        <Association Name="AlumnoAulaAlumno">
+          <End Type="ModelContext.Alumno" Role="Alumno" Multiplicity="1" />
+          <End Type="ModelContext.AulaAlumno" Role="AulaAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AulaAlumno">
+              <PropertyRef Name="AlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AulaAulaAlumno">
+          <End Type="ModelContext.Aula" Role="Aula" Multiplicity="1" />
+          <End Type="ModelContext.AulaAlumno" Role="AulaAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AulaAlumno">
+              <PropertyRef Name="AulaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Asistencia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Presente" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AulaAlumno" Relationship="ModelContext.AulaAlumnoAsistencia" FromRole="Asistencia" ToRole="AulaAlumno" />
+          <Property Name="AulaAlumnoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="AulaAlumnoAsistencia">
+          <End Type="ModelContext.AulaAlumno" Role="AulaAlumno" Multiplicity="1" />
+          <End Type="ModelContext.Asistencia" Role="Asistencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AulaAlumno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Asistencia">
+              <PropertyRef Name="AulaAlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Archivo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrlDireccion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tarea" Relationship="ModelContext.ArchivoTarea" FromRole="Archivo" ToRole="Tarea" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TareaAlumno" Relationship="ModelContext.ArchivoTareaAlumno" FromRole="Archivo" ToRole="TareaAlumno" />
+        </EntityType>
+        <Association Name="DocenteTarea">
+          <End Type="ModelContext.Docente" Role="Docente" Multiplicity="1" />
+          <End Type="ModelContext.Tarea" Role="Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tarea">
+              <PropertyRef Name="DocenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AulaTarea">
+          <End Type="ModelContext.Aula" Role="Aula" Multiplicity="1" />
+          <End Type="ModelContext.Tarea" Role="Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tarea">
+              <PropertyRef Name="AulaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ArchivoTarea">
+          <End Type="ModelContext.Archivo" Role="Archivo" Multiplicity="1" />
+          <End Type="ModelContext.Tarea" Role="Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archivo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tarea">
+              <PropertyRef Name="ArchivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TareaAlumno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaPresentacion" Type="DateTime" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AulaAlumno" Relationship="ModelContext.AulaAlumnoTareaAlumno" FromRole="TareaAlumno" ToRole="AulaAlumno" />
+          <Property Name="AulaAlumnoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tarea" Relationship="ModelContext.TareaTareaAlumno" FromRole="TareaAlumno" ToRole="Tarea" />
+          <Property Name="TareaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Archivo" Relationship="ModelContext.ArchivoTareaAlumno" FromRole="TareaAlumno" ToRole="Archivo" />
+          <Property Name="ArchivoId" Type="Int32" Nullable="false" />
+          <Property Name="Nota" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <Association Name="AulaAlumnoTareaAlumno">
+          <End Type="ModelContext.AulaAlumno" Role="AulaAlumno" Multiplicity="1" />
+          <End Type="ModelContext.TareaAlumno" Role="TareaAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AulaAlumno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TareaAlumno">
+              <PropertyRef Name="AulaAlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TareaTareaAlumno">
+          <End Type="ModelContext.Tarea" Role="Tarea" Multiplicity="1" />
+          <End Type="ModelContext.TareaAlumno" Role="TareaAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TareaAlumno">
+              <PropertyRef Name="TareaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ArchivoTareaAlumno">
+          <End Type="ModelContext.Archivo" Role="Archivo" Multiplicity="1" />
+          <End Type="ModelContext.TareaAlumno" Role="TareaAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archivo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TareaAlumno">
+              <PropertyRef Name="ArchivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
