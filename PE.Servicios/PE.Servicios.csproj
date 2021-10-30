@@ -31,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,14 +55,15 @@
     <Compile Include="Asistencia\AsistenciaServicio.cs" />
     <Compile Include="Asistencia\Dto\AsistenciaDto.cs" />
     <Compile Include="AulaAlumno\AulaAlumnoServicio.cs" />
-    <Compile Include="AulaAlumno\Dto\AulaAlumno.cs" />
+    <Compile Include="AulaAlumno\Dto\AulaAlumnoDto.cs" />
     <Compile Include="Aula\AulaServicio.cs" />
     <Compile Include="Aula\Dto\AulaDto.cs" />
     <Compile Include="Base\EntidadBase.cs" />
+    <Compile Include="Base\IOperaciones.cs" />
     <Compile Include="Ciclo\CicloServicio.cs" />
     <Compile Include="Ciclo\Dto\CicloDto.cs" />
     <Compile Include="Docente\DocenteServicio.cs" />
-    <Compile Include="Docente\Dto\Docente.cs" />
+    <Compile Include="Docente\Dto\DocenteDto.cs" />
     <Compile Include="Materia\Dto\MateriaDto.cs" />
     <Compile Include="Materia\MateriaServicio.cs" />
     <Compile Include="Nivel\Dto\NivelDto.cs" />
@@ -72,6 +80,15 @@
     <Compile Include="Usuario\Dto\UsuarioDto.cs" />
     <Compile Include="Usuario\UsuarioServicio.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PE.Infraestructura.Context\PE.Infraestructura.Context.csproj">
+      <Project>{7ff483ea-7ba1-47fb-a9a5-bbab0b9363af}</Project>
+      <Name>PE.Infraestructura.Context</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

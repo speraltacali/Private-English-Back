@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PE.Servicios.Docente.Dto
 {
-    public class Docente : EntidadBase
+    public class DocenteDto : EntidadBase
     {
         public string Legajo { get; set; }
 

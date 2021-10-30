@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PE.Servicios.AulaAlumno.Dto
 {
-    public class AulaAlumno : EntidadBase
+    public class AulaAlumnoDto : EntidadBase
     {
         public int AulaId { get; set; }
 
