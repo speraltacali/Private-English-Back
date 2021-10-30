@@ -41,23 +41,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alumno\AlumnoServicio.cs" />
     <Compile Include="Alumno\Dto\AlumnoDto.cs" />
+    <Compile Include="Archivo\ArchivoServicio.cs" />
+    <Compile Include="Archivo\Dto\ArchivoDto.cs" />
+    <Compile Include="Asistencia\AsistenciaServicio.cs" />
+    <Compile Include="Asistencia\Dto\AsistenciaDto.cs" />
+    <Compile Include="AulaAlumno\AulaAlumnoServicio.cs" />
+    <Compile Include="AulaAlumno\Dto\AulaAlumno.cs" />
+    <Compile Include="Aula\AulaServicio.cs" />
+    <Compile Include="Aula\Dto\AulaDto.cs" />
+    <Compile Include="Base\EntidadBase.cs" />
+    <Compile Include="Ciclo\CicloServicio.cs" />
+    <Compile Include="Ciclo\Dto\CicloDto.cs" />
+    <Compile Include="Docente\DocenteServicio.cs" />
+    <Compile Include="Docente\Dto\Docente.cs" />
+    <Compile Include="Materia\Dto\MateriaDto.cs" />
+    <Compile Include="Materia\MateriaServicio.cs" />
+    <Compile Include="Nivel\Dto\NivelDto.cs" />
+    <Compile Include="Nivel\NivelServicio.cs" />
+    <Compile Include="Persona\Dto\PersonaDto.cs" />
+    <Compile Include="Persona\PersonaServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rol\Dto\RolDto.cs" />
+    <Compile Include="Rol\RolServicio.cs" />
+    <Compile Include="TareaAlumno\Dto\TareaAlumnoDto.cs" />
+    <Compile Include="TareaAlumno\TareaAlumnoServicio.cs" />
+    <Compile Include="Tarea\Dto\TareaDto.cs" />
+    <Compile Include="Tarea\TareaServicio.cs" />
+    <Compile Include="Usuario\Dto\UsuarioDto.cs" />
+    <Compile Include="Usuario\UsuarioServicio.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Archivo\Dto\" />
-    <Folder Include="Asistencia\Dto\" />
-    <Folder Include="AulaAlumno\Dto\" />
-    <Folder Include="Aula\Dto\" />
-    <Folder Include="Ciclo\Dto\" />
-    <Folder Include="Docente\Dto\" />
-    <Folder Include="Materia\Dto\" />
-    <Folder Include="Nivel\Dto\" />
-    <Folder Include="Persona\Dto\" />
-    <Folder Include="Rol\Dto\" />
-    <Folder Include="TareaAlumno\Dto\" />
-    <Folder Include="Tarea\Dto\" />
-    <Folder Include="Usuario\Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

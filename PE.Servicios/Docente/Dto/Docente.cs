@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PE.Servicios.Alumno.Dto
+namespace PE.Servicios.Docente.Dto
 {
-    public class AlumnoDto : EntidadBase
-    {   
+    public class Docente : EntidadBase
+    {
         public string Legajo { get; set; }
-
-        public DateTime FechaInscripcion { get; set; }
 
         public bool Eliminado { get; set; }
 
