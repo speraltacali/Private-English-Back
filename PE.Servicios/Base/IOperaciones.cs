@@ -16,6 +16,6 @@ namespace PE.Servicios.Base
 
         IEnumerable<T> Obtener(string buscar);
 
-        IEnumerable<T> ObtenerPorId(int id);
+        T ObtenerPorId(int id);
     }
 }

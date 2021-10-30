@@ -13,44 +13,108 @@ namespace PE.Servicios.Persona
     {
         public void Eliminar(int id)
         {
-            throw new NotImplementedException();
+            using(var context = new ModelContextContainer())
+            {
+                var eliminar = ObtenerPorId(id);
+
+                if (eliminar == null) throw new Exception("no se encontro a la Persona");
+
+                eliminar.Eliminado = true;
+
+
+                context.SaveChanges();
+            }
         }
 
         public int Insertar(PersonaDto dto)
         {
             using (var context = new ModelContextContainer())
             {
-                var nuevaPersona = new Infraestructura.Context.Persona
+                var nuevo = new Infraestructura.Context.Persona
                 {
                     Nombre = dto.Nombre,
                     Apellido = dto.Apellido,
                     Dni = dto.Dni,
                     FechaNacimiento = dto.FechaNacimiento,
                     Eliminado = dto.Eliminado,
-                    Domicilio = dto.Domicilio
-
+                    Domicilio = dto.Domicilio,
+                    UsuarioId = dto.UsuarioId
                 };
 
-                context.Personas.Add(nuevaPersona);
+                context.Personas.Add(nuevo);
                 context.SaveChanges();
 
-                return nuevaPersona.Id;
+                return nuevo.Id;
             }
         }
 
-        public void Modificar(PersonaDto dto)
+        public void Modificar(PersonaDto dto) 
         {
-            throw new NotImplementedException();
+            using(var context = new ModelContextContainer())
+            {
+                var modificar = ObtenerPorId(dto.Id);
+
+                if(modificar == null) throw new Exception("no se encontro a la Persona");
+
+                modificar.Nombre = dto.Nombre;
+                modificar.Apellido = dto.Apellido;
+                modificar.Dni = dto.Dni;
+                modificar.FechaNacimiento = dto.FechaNacimiento;
+                modificar.Eliminado = dto.Eliminado;
+                modificar.Domicilio = dto.Domicilio;
+                modificar.UsuarioId = dto.UsuarioId;
+
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<PersonaDto> Obtener(string buscar)
         {
-            throw new NotImplementedException();
+            using (var context = new ModelContextContainer())
+            {
+                return context.Personas
+                    .AsNoTracking()
+                    .Where(x => x.Nombre.Contains(buscar) ||
+                              x.Apellido.Contains(buscar) ||
+                              x.Dni.Contains(buscar))
+                    .Select(x => new PersonaDto
+                    {
+                        Id = x.Id,
+                        Nombre = x.Nombre,
+                        Apellido = x.Apellido,
+                        Dni = x.Dni,
+                        FechaNacimiento = x.FechaNacimiento,
+                        Eliminado = x.Eliminado,
+                        Domicilio = x.Domicilio,
+                        UsuarioId = x.UsuarioId
+
+                    }).ToList();
+                    
+            }
         }
 
-        public IEnumerable<PersonaDto> ObtenerPorId(int id)
+        public PersonaDto ObtenerPorId(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new ModelContextContainer())
+            {
+                var data = context.Personas.FirstOrDefault(x => x.Id == id);
+
+                if (data == null) throw new Exception("no se encontro a la Persona");
+
+
+                return new PersonaDto
+                {
+                    Id = data.Id,
+                    Nombre = data.Nombre,
+                    Apellido = data.Apellido,
+                    Dni = data.Dni,
+                    FechaNacimiento = data.FechaNacimiento,
+                    Eliminado = data.Eliminado,
+                    Domicilio = data.Domicilio,
+                    UsuarioId = data.UsuarioId
+                };
+
+            }
         }
     }
 }

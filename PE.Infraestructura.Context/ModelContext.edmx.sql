@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/29/2021 15:33:32
+-- Date Created: 10/30/2021 15:42:53
 -- Generated from EDMX file: C:\Users\santi\source\repos\Private-English-Back\PE.Infraestructura.Context\ModelContext.edmx
 -- --------------------------------------------------
 
@@ -65,6 +65,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ArchivoTareaAlumno]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TareaAlumnos] DROP CONSTRAINT [FK_ArchivoTareaAlumno];
 GO
+IF OBJECT_ID(N'[dbo].[FK_NivelAlumno]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Alumnos] DROP CONSTRAINT [FK_NivelAlumno];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -108,6 +111,9 @@ IF OBJECT_ID(N'[dbo].[Archivos]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[TareaAlumnos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TareaAlumnos];
+GO
+IF OBJECT_ID(N'[dbo].[Niveles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Niveles];
 GO
 
 -- --------------------------------------------------
@@ -153,7 +159,7 @@ CREATE TABLE [dbo].[Usuarios] (
     [User] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [Bloqueado] bit  NOT NULL,
-    [Eliminado] nvarchar(max)  NOT NULL,
+    [Eliminado] bit  NOT NULL,
     [RolId] int  NOT NULL
 );
 GO

@@ -24,7 +24,7 @@ namespace PE.Infraestructura.Context
         public string User { get; set; }
         public string Password { get; set; }
         public bool Bloqueado { get; set; }
-        public string Eliminado { get; set; }
+        public bool Eliminado { get; set; }
         public int RolId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

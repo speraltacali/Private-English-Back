@@ -130,7 +130,7 @@
     <Property Name="User" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Bloqueado" Type="bit" Nullable="false" />
-    <Property Name="Eliminado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Eliminado" Type="bit" Nullable="false" />
     <Property Name="RolId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Roles">
@@ -572,7 +572,7 @@
           <Property Name="User" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="Bloqueado" Type="Boolean" Nullable="false" />
-          <Property Name="Eliminado" Type="String" Nullable="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="ModelContext.UsuarioPersona" FromRole="Usuario" ToRole="Persona" />
           <NavigationProperty Name="Rol" Relationship="ModelContext.RolUsuario" FromRole="Usuario" ToRole="Rol" />
           <Property Name="RolId" Type="Int32" Nullable="false" />

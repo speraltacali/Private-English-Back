@@ -21,5 +21,6 @@ namespace PE.Servicios.Persona.Dto
 
         public string Domicilio { get; set; }
 
+        public int UsuarioId { get; set; }
     }
 }
